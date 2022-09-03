@@ -59,6 +59,19 @@ ON P.PROD_ID = O.PR_ID;
 --FULL OUTER JOIN
 
 
+------------TRIGGER----------------
+create or replace trigger team_id_auto
+before insert on team
+for each row
+begin
+    if inserting then
+        if :NEW.team_id is null then
+            select 'EL' || TO_CHAR(SEQ1.NEXTVAL, 'FM000') into :NEW.team_id from dual;
+        end if;
+    end if;
+end;
+
+
 
 
 
